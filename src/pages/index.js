@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Head from 'next/head';
 
 export default function Home() {
   const [url, setUrl] = useState('');
@@ -19,22 +20,35 @@ export default function Home() {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="url"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          placeholder="Enter URL"
-          required
-        />
-        <button type="submit">Shorten</button>
-      </form>
-      {shortCode && (
-        <div>
-          Shortened URL: <a href={`/api/r/${shortCode}`}>/api/r/{shortCode}</a>
-        </div>
-      )}
+    <div className="app">
+      <Head>
+        <title>URL Shortener</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <main>
+        <section className="section">
+          <h1 className="section__title">URL Shortener</h1>
+          
+          <form onSubmit={handleSubmit} className="center">
+            <input
+              type="url"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              placeholder="Enter URL"
+              required
+            />
+            <button type="submit" className="btn">Shorten</button>
+          </form>
+          
+          {shortCode && (
+            <div className="center">
+              <span>Shortened URL: </span>
+              <a href={`/r/${shortCode}`} className="link">r/{shortCode}</a>
+            </div>
+          )}
+        </section>
+      </main>
     </div>
   );
 }
